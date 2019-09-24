@@ -15,7 +15,8 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         $active_composer = 'App\Http\ViewComposers\DeveloperComposer';
-        $template = 'includes.default.sidebar_nav';
+        $template = ['includes.default.sidebar_nav','includes.default.header'];
+        
         // Using class based composers...
         View::composer(
           $template,

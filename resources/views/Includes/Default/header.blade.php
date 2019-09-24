@@ -361,7 +361,7 @@
               <!--<img class="img-circle img-user media-object" src="../doc/images/profile-photos/1.png" alt="Profile Picture">-->
               <i class="demo-pli-male ic-user"></i>
             </span>
-            <div class="username hidden-xs">Aaron Chavez</div>
+            <div class="username hidden-xs">{{ $com_user['user_alias'] }}</div>
           </a>
 
 

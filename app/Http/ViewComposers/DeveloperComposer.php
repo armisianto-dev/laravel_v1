@@ -19,6 +19,7 @@ class DeveloperComposer
   protected $nav_id = 0;
   protected $parent_id = 0;
   protected $parent_selected = 0;
+  protected $com_user = array();
 
   public function __construct(Request $request){
     $this->request = $request;
@@ -29,6 +30,9 @@ class DeveloperComposer
   {
     $list_menu = $this->__display_navigation();
     $view->with('list_menu', $list_menu);
+
+    $this->com_user = $this->request->session()->get('login_developer');
+    $view->with('com_user', $this->com_user);
   }
 
   protected function __set_current(){
