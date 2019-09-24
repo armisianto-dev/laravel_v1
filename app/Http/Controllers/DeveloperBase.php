@@ -11,7 +11,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 // Model
 use App\Models\Base\Menu;
 
-class DeveloperBase extends BaseController
+class DeveloperBase
 {
   use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
@@ -22,7 +22,6 @@ class DeveloperBase extends BaseController
 
   public function __construct(Request $request){
     $this->request = $request;
-    $this->check_authority();
   }
 
   protected function check_authority(){
@@ -46,6 +45,7 @@ class DeveloperBase extends BaseController
   }
 
   public function _set_page_rule($rule) {
+    $this->check_authority();
     if (!isset($this->role_tp[$rule]) or $this->role_tp[$rule] != "1") {
       // redirect to forbiden access
       return redirect('/auth/developer/logout')->send();
