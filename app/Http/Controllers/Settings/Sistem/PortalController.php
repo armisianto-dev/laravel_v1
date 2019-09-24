@@ -4,22 +4,28 @@ namespace App\Http\Controllers\Settings\Sistem;
 
 use Validator;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\DeveloperBase;
 use App\Models\Settings\Sistem\PortalModel;
 
-class PortalController extends Controller
+class PortalController extends DeveloperBase
 {
 
   public function index(){
+    $this->_set_page_rule('R');
+
     $rs_portal = PortalModel::orderBy('portal_id', 'ASC')->get();
     return view('Settings.Sistem.Portal.index', compact('rs_portal'));
   }
 
   public function create(){
+    $this->_set_page_rule('C');
+
     return view('Settings.Sistem.Portal.create');
   }
 
   public function insert(Request $request){
+    $this->_set_page_rule('C');
+
     $validator = Validator::make($request->all(), [
       'portal_id' => 'required|numeric|unique:com_portal,portal_id',
       'portal_nm' => 'required|max:50',
@@ -61,6 +67,8 @@ class PortalController extends Controller
     }
 
     public function edit($portal_id = null){
+      $this->_set_page_rule('U');
+
       if(!$portal_id){
         return redirect('/sistem/portal')->with('error','Data portal tidak ditemukan');
       }
@@ -70,6 +78,8 @@ class PortalController extends Controller
     }
 
     public function update(Request $request, $portal_id = null){
+      $this->_set_page_rule('U');
+
       if(!$portal_id){
         return redirect('/sistem/portal')->with('error','Data portal tidak ditemukan');
       }

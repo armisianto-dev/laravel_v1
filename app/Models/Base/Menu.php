@@ -27,4 +27,21 @@ class Menu extends Model
     ->get();
     return json_decode(json_encode($results), true);
   }
+
+  public static function getUserAuthorityByNav($params){
+    $sql = "SELECT DISTINCT b.* FROM com_menu a
+    INNER JOIN com_role_menu b ON a.nav_id = b.nav_id
+    INNER JOIN com_role c ON b.role_id = c.role_id
+    INNER JOIN com_role_user d ON c.role_id = d.role_id
+    WHERE d.user_id = ? AND b.nav_id = ? AND a.portal_id = ? AND active_st = '1'";
+    
+    $result = DB::connection()->select($sql, $params);
+    $result = json_decode(json_encode($result), true);
+    if($result){
+      return $result[0]['role_tp'];
+    }else{
+      return false;
+    }
+
+  }
 }
