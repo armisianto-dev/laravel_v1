@@ -22,8 +22,6 @@ class DeveloperController extends Controller
   |
   */
 
-  protected $role_id = '01001';
-
   /**
   * Create a new controller instance.
   *
@@ -57,7 +55,7 @@ class DeveloperController extends Controller
     $password = $request->input('password');
 
     // Find the user by username
-    $user = Users::getUserLogin(array($username, $this->role_id));
+    $user = Users::getUserLogin(array($username));
     if (!$user) {
       return redirect('/auth/developer')->with('error','Login Gagal : User tidak ditemukan!');
     }

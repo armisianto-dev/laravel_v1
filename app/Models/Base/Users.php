@@ -16,7 +16,8 @@ class Users extends Model
     FROM com_user a
     INNER JOIN com_role_user b ON a.user_id = b.user_id
     INNER JOIN com_role c ON b.role_id = c.role_id
-    WHERE a.user_name = ? AND b.role_id = ? ";
+    WHERE a.user_name = ?
+    GROUP BY a.user_id ";
 
     $result = DB::connection()->select($sql, $params);
     return json_decode(json_encode($result), true);
