@@ -48,7 +48,7 @@ class DeveloperBase
     $this->check_authority();
     if (!isset($this->role_tp[$rule]) or $this->role_tp[$rule] != "1") {
       // redirect to forbiden access
-      return redirect('/auth/developer/logout')->send();
+      return redirect('/auth/developer')->with('error','Logout : Anda tidak mempunyai hak akses')->send();
     }
   }
 

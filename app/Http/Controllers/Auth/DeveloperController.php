@@ -34,7 +34,8 @@ class DeveloperController extends Controller
     // $this->middleware('guest')->except('logout');
   }
 
-  public function index(){
+  public function index(Request $request){
+    $request->session()->forget('login_developer');
     return view('Auth.Developer.index');
   }
 
