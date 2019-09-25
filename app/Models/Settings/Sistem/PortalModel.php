@@ -11,9 +11,9 @@ class PortalModel extends Model
   protected $primaryKey = 'portal_id';
 
   protected $fillable = [
-    'portal_id','portal_nm', 'site_title', 'site_desc', 'meta_desc','meta_keyword','create_by'
+    'portal_id','portal_nm', 'site_title', 'site_desc', 'meta_desc','meta_keyword','mdb'
   ];
 
-  const CREATED_AT = 'create_date';
-  const UPDATED_AT = 'update_date';
+  const CREATED_AT = 'crd';
+  const UPDATED_AT = 'mdd';
 }

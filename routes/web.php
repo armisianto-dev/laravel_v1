@@ -25,6 +25,7 @@ Route::prefix('/auth')->group(function(){
 Route::prefix('/home')->middleware('auth.developer')->group(function(){
   Route::get('/developer', 'Home\DeveloperController@index');
 });
+
 // Portal
 Route::prefix('/sistem/portal')->middleware('auth.developer')->group(function(){
   Route::get('/', 'Settings\Sistem\PortalController@index');
@@ -34,4 +35,15 @@ Route::prefix('/sistem/portal')->middleware('auth.developer')->group(function(){
   Route::post('/update/{portal_id?}', 'Settings\Sistem\PortalController@update' );
   Route::get('/delete/{portal_id?}', 'Settings\Sistem\PortalController@delete' );
   Route::post('/remove/{portal_id?}', 'Settings\Sistem\PortalController@remove' );
+});
+
+// Group
+Route::prefix('/sistem/groups')->middleware('auth.developer')->group(function(){
+  Route::get('/', 'Settings\Sistem\GroupsController@index');
+  Route::get('/create', 'Settings\Sistem\GroupsController@create' );
+  Route::post('/insert', 'Settings\Sistem\GroupsController@insert' );
+  Route::get('/edit/{group_id?}', 'Settings\Sistem\GroupsController@edit' );
+  Route::post('/update/{group_id?}', 'Settings\Sistem\GroupsController@update' );
+  Route::get('/delete/{group_id?}', 'Settings\Sistem\GroupsController@delete' );
+  Route::post('/remove/{group_id?}', 'Settings\Sistem\GroupsController@remove' );
 });

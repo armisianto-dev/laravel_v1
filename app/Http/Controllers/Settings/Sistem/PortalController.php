@@ -58,7 +58,8 @@ class PortalController extends DeveloperBase
       'site_title' => $request->input('site_title'),
       'site_desc' => $request->input('site_desc'),
       'meta_desc' => $request->input('meta_desc'),
-      'meta_keyword' => $request->input('meta_keyword')
+      'meta_keyword' => $request->input('meta_keyword'),
+      'mdb' => $this->com_user['user_id']
       ])){
         return redirect('/sistem/portal/create')->with('success','Data portal berhasil ditambahkan');
       }
@@ -74,6 +75,10 @@ class PortalController extends DeveloperBase
       }
 
       $result = PortalModel::where('portal_id', $portal_id)->first();
+
+      if(!$result){
+        return redirect('/sistem/portal')->with('error','Data portal tidak ditemukan');
+      }
       return view('Settings.Sistem.Portal.edit', compact('result', 'portal_id'));
     }
 
@@ -117,6 +122,7 @@ class PortalController extends DeveloperBase
       $data->site_desc = $request->input('site_desc');
       $data->meta_desc = $request->input('meta_desc');
       $data->meta_keyword = $request->input('meta_keyword');
+      $data->mdb = $this->com_user['user_id'];
       if($data->save()){
         return redirect('/sistem/portal')->with('success','Data portal berhasil diedit');
       }
@@ -132,6 +138,10 @@ class PortalController extends DeveloperBase
       }
 
       $result = PortalModel::where('portal_id', $portal_id)->first();
+
+      if(!$result){
+        return redirect('/sistem/portal')->with('error','Data portal tidak ditemukan');
+      }
       return view('Settings.Sistem.Portal.delete', compact('result', 'portal_id'));
     }
 
