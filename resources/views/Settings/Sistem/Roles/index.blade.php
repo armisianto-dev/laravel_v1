@@ -69,10 +69,10 @@
                     <td class="text-left">{{ $result->default_page }}</td>
                     <td class="text-left">{{ $result->group_name }}</td>
                     <td class="text-center">
-                      <a href="/sistem/roles/edit/{{ str_pad($result->group_id,2,'0',STR_PAD_LEFT) }}" class="btn btn-xs btn-info">
+                      <a href="/sistem/roles/edit/{{ str_pad($result->role_id,5,'0',STR_PAD_LEFT) }}" class="btn btn-xs btn-info">
                         <i class="fa fa-pencil"></i>
                       </a>
-                      <a href="/sistem/roles/delete/{{ str_pad($result->group_id,2,'0',STR_PAD_LEFT) }}" class="btn btn-xs btn-danger">
+                      <a href="/sistem/roles/delete/{{ str_pad($result->role_id,5,'0',STR_PAD_LEFT) }}" class="btn btn-xs btn-danger">
                         <i class="fa fa-times"></i>
                       </a>
                     </td>

@@ -91,19 +91,24 @@ class RolesController extends DeveloperBase
       return redirect('/sistem/roles/create')->with('error','Data roles gagal ditambahkan');
     }
 
-    public function edit($group_id = null){
+    public function edit($role_id = null){
       $this->_set_page_rule('U');
 
-      if(!$group_id){
+      $this->add_load_style('plugins/select2/css/select2.min.css');
+      $this->add_load_js('plugins/select2/js/select2.min.js');
+
+      if(!$role_id){
         return redirect('/sistem/roles')->with('error','Data group tidak ditemukan');
       }
 
-      $result = RolesModel::where('group_id', $group_id)->first();
+      $result = RolesModel::where('role_id', $role_id)->first();
       if(!$result){
         return redirect('/sistem/roles')->with('error','Data group tidak ditemukan');
       }
 
-      return view('Settings.Sistem.Roles.edit', compact('result', 'group_id'));
+      $rs_group = GroupsModel::orderBy('group_id')->get();
+
+      return view('Settings.Sistem.Roles.edit', compact('result', 'role_id', 'rs_group'));
     }
 
     public function update(Request $request, $group_id = null){
