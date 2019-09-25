@@ -10,11 +10,27 @@ use App\Models\Settings\Sistem\GroupsModel;
 class GroupsController extends DeveloperBase
 {
 
-  public function index(){
+  public function index(Request $request){
     $this->_set_page_rule('R');
 
-    $rs_group = GroupsModel::orderBy('group_id', 'ASC')->paginate(2);
-    return view('Settings.Sistem.Groups.index', compact('rs_group'));
+    // Set search parameter
+    $search = $request->session()->get('session_sistem_groups');
+    $group_name = empty($search['group_name']) ? '%' : '%'.$search['group_name'].'%';
+
+    $rs_result = GroupsModel::whereRaw('group_name LIKE ? ', [$group_name])
+      ->orderBy('group_id', 'ASC')
+      ->paginate(15);
+    return view('Settings.Sistem.Groups.index', compact('rs_result','search'));
+  }
+
+  public function search(Request $request){
+    $this->_set_page_rule('R');
+
+    $search = array();
+    $search['group_name'] = $request->input('group_name');
+
+    $request->session()->put('session_sistem_groups', $search);
+    return redirect('/sistem/groups');
   }
 
   public function create(){

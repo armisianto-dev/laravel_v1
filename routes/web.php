@@ -40,6 +40,7 @@ Route::prefix('/sistem/portal')->middleware('auth.developer')->group(function(){
 // Group
 Route::prefix('/sistem/groups')->middleware('auth.developer')->group(function(){
   Route::get('/', 'Settings\Sistem\GroupsController@index');
+  Route::post('/search', 'Settings\Sistem\GroupsController@search');
   Route::get('/create', 'Settings\Sistem\GroupsController@create' );
   Route::post('/insert', 'Settings\Sistem\GroupsController@insert' );
   Route::get('/edit/{group_id?}', 'Settings\Sistem\GroupsController@edit' );

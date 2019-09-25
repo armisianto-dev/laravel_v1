@@ -21,6 +21,18 @@
             <h3 class="panel-title">List Groups</h3>
           </div>
           <div class="panel-body">
+            <form class="form-inline" action="/sistem/groups/search" method="post">
+              {{ csrf_field() }}
+              <div class="form-group">
+                <label for="group_name" class="sr-only">Nama Group</label>
+                <input type="text" name="group_name" placeholder="Nama Group" id="group_name" class="form-control" value="{{ $search['group_name'] }}">
+              </div>
+              <button class="btn btn-primary" type="submit">Cari</button>
+            </form>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
             @include('includes.flash-message')
             <div class="table-responsive">
               <table class="table table-bordered">
@@ -34,18 +46,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @if($rs_group->count())
-                  @foreach($rs_group as $i=>$group)
+                  @if($rs_result->count())
+                  @foreach($rs_result as $i=>$result)
                   <tr>
-                    <td class="text-center">{{ $rs_group->firstItem()+$i }}</td>
-                    <td class="text-center">{{ $group->group_id }}</td>
-                    <td class="text-left">{{ $group->group_name }}</td>
-                    <td class="text-left">{{ $group->group_desc }}</td>
+                    <td class="text-center">{{ $rs_result->firstItem()+$i }}</td>
+                    <td class="text-center">{{ $result->group_id }}</td>
+                    <td class="text-left">{{ $result->group_name }}</td>
+                    <td class="text-left">{{ $result->group_desc }}</td>
                     <td class="text-center">
-                      <a href="/sistem/groups/edit/{{ $group->group_id }}" class="btn btn-xs btn-info">
+                      <a href="/sistem/groups/edit/{{ $result->group_id }}" class="btn btn-xs btn-info">
                         <i class="fa fa-pencil"></i>
                       </a>
-                      <a href="/sistem/groups/delete/{{ $group->group_id }}" class="btn btn-xs btn-danger">
+                      <a href="/sistem/groups/delete/{{ $result->group_id }}" class="btn btn-xs btn-danger">
                         <i class="fa fa-times"></i>
                       </a>
                     </td>
@@ -63,11 +75,11 @@
           <div class="panel-footer">
             <div class="row">
               <div class="col-md-4">
-                <span class="help-block text-block my-0">Halaman {{ $rs_group->currentPage() }} dari {{ $rs_group->lastPage() }}</span>
-                <span class="help-block text-block my-0">Menampilkan {{ $rs_group->firstItem() }} - {{ $rs_group->lastItem() }} data dari {{ $rs_group->total() }} data</span>
+                <span class="help-block text-block my-0">Halaman {{ $rs_result->currentPage() }} dari {{ $rs_result->lastPage() }}</span>
+                <span class="help-block text-block my-0">Menampilkan {{ $rs_result->firstItem() }} - {{ $rs_result->lastItem() }} dari {{ $rs_result->total() }} data</span>
               </div>
               <div class="col-md-8 text-right">
-                {{ $rs_group->links() }}
+                {{ $rs_result->links() }}
               </div>
             </div>
           </div>
