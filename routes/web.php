@@ -51,12 +51,12 @@ Route::prefix('/sistem/groups')->middleware('auth.developer')->group(function(){
 
 // Roles
 Route::prefix('/sistem/roles')->middleware('auth.developer')->group(function(){
-  Route::get('/', 'Settings\Sistem\GroupsController@index');
-  Route::post('/search', 'Settings\Sistem\GroupsController@search');
-  Route::get('/create', 'Settings\Sistem\GroupsController@create' );
-  Route::post('/insert', 'Settings\Sistem\GroupsController@insert' );
-  Route::get('/edit/{group_id?}', 'Settings\Sistem\GroupsController@edit' );
-  Route::post('/update/{group_id?}', 'Settings\Sistem\GroupsController@update' );
-  Route::get('/delete/{group_id?}', 'Settings\Sistem\GroupsController@delete' );
-  Route::post('/remove/{group_id?}', 'Settings\Sistem\GroupsController@remove' );
+  Route::get('/', 'Settings\Sistem\RolesController@index');
+  Route::post('/search', 'Settings\Sistem\RolesController@search');
+  Route::get('/create', 'Settings\Sistem\RolesController@create' );
+  Route::post('/insert', 'Settings\Sistem\RolesController@insert' );
+  Route::get('/edit/{group_id?}', 'Settings\Sistem\RolesController@edit' );
+  Route::post('/update/{group_id?}', 'Settings\Sistem\RolesController@update' );
+  Route::get('/delete/{group_id?}', 'Settings\Sistem\RolesController@delete' );
+  Route::post('/remove/{group_id?}', 'Settings\Sistem\RolesController@remove' );
 });

@@ -22,6 +22,9 @@ class DeveloperBase extends Controller
   protected $com_user = array();
   protected $list_nav = '';
 
+  protected $load_js = array();
+  protected $load_style = array();
+
   public function __construct(){
     $this->middleware(function ($request, $next) {
       $this->com_user = $request->session()->get('login_developer');
@@ -31,6 +34,9 @@ class DeveloperBase extends Controller
 
       View::share('com_user', $this->com_user);
       View::share('list_nav', $this->list_nav);
+
+      View::share('load_js', $this->load_js);
+      View::share('load_style', $this->load_style);
 
       return $next($request);
     });
@@ -61,6 +67,20 @@ class DeveloperBase extends Controller
       // redirect to forbiden access
       return redirect('/auth/developer')->with('error','Logout : Anda tidak mempunyai hak akses')->send();
     }
+  }
+
+  public function add_load_js($path){
+    $themes_path = 'assets/themes/default/';
+    array_push($this->load_js, $themes_path.$path);
+
+    View::share('load_js', $this->load_js);
+  }
+
+  public function add_load_style($path){
+    $themes_path = 'assets/themes/default/';
+    array_push($this->load_style, $themes_path.$path);
+
+    View::share('load_style', $this->load_style);
   }
 
   // Generate Navigation

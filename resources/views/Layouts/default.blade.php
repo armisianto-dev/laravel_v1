@@ -16,6 +16,13 @@
   <!--Magic Checkbox [ OPTIONAL ]-->
   <link href="{{ URL::asset('assets/themes/default/plugins/magic-check/css/magic-check.min.css') }}" rel="stylesheet">
 
+  <!-- Load style -->
+  @if (count($load_style) > 0)
+    @foreach ($load_style as $style)
+    <link href="{{ URL::asset($style) }}" rel="stylesheet">
+    @endforeach
+  @endif
+
   <!--JAVASCRIPT-->
   <!--=================================================-->
   <!--Pace - Page Load Progress Par [OPTIONAL]-->
@@ -31,15 +38,13 @@
   <!--Demo script [ DEMONSTRATION ]-->
   <script src="{{ URL::asset('assets/themes/default/plugins/js/demo/nifty-demo.min.js') }}"></script>
 
-  <!--Morris.js [ OPTIONAL ]-->
-  <script src="{{ URL::asset('assets/themes/default/plugins/morris-js/morris.min.js') }}"></script>
-  <script src="{{ URL::asset('assets/themes/default/plugins/morris-js/raphael-js/raphael.min.js') }}"></script>
+  <!-- Load js -->
+  @if (count($load_js) > 0)
+    @foreach ($load_js as $js)
+    <script src="{{ URL::asset($js) }}"></script>
+    @endforeach
+  @endif
 
-  <!--Sparkline [ OPTIONAL ]-->
-  <script src="{{ URL::asset('assets/themes/default/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
-
-  <!--Specify page [ SAMPLE ]-->
-  <script src="{{ URL::asset('assets/themes/default/plugins/js/demo/dashboard.js') }}"></script>
 </head>
 
 <body>

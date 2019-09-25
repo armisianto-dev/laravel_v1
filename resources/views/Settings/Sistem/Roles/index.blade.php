@@ -24,8 +24,19 @@
             <form class="form-inline" action="/sistem/roles/search" method="post">
               {{ csrf_field() }}
               <div class="form-group">
-                <label for="group_name" class="sr-only">Nama Group</label>
-                <input type="text" name="group_name" placeholder="Nama Group" id="group_name" class="form-control" value="{{ $search['group_name'] }}">
+                <label for="role_nm" class="sr-only">Nama Role</label>
+                <input type="text" name="role_nm" placeholder="Nama Group" id="role_nm" class="form-control" value="{{ $search['role_nm'] }}">
+              </div>
+              <div class="form-group">
+                <label for="group_id" class="sr-only">Group</label>
+                <select class="form-control" name="group_id" id="group_id" data-placeholder="Pilih Group">
+                  <option value=""></option>
+                  @if (count($rs_group) > 0)
+                    @foreach ($rs_group as $group)
+                    <option value="{{ str_pad($group->group_id,2,'0',STR_PAD_LEFT) }}" @if (str_pad($group->group_id,2,'0',STR_PAD_LEFT) == str_pad($search['group_id'],2,'0',STR_PAD_LEFT)) selected="" @endif >{{ $group->group_name }}</option>
+                    @endforeach
+                  @endif
+                </select>
               </div>
               <button class="btn btn-primary" type="submit">Cari</button>
             </form>
@@ -39,9 +50,11 @@
                 <thead>
                   <tr>
                     <th width="5%" class="text-center">No</th>
-                    <th width="5%" class="text-center">ID Roles</th>
-                    <th width="20%" class="text-left">Nama Roles</th>
-                    <th width="60%" class="text-left">Roles Desc</th>
+                    <th width="10%" class="text-center">ID Roles</th>
+                    <th width="15%" class="text-left">Nama Roles</th>
+                    <th width="25%" class="text-left">Roles Desc</th>
+                    <th width="20%" class="text-left">Default Page</th>
+                    <th width="15%" class="text-left">Group</th>
                     <th width="10%" class="text-center">#</th>
                   </tr>
                 </thead>
@@ -50,9 +63,11 @@
                   @foreach($rs_result as $i=>$result)
                   <tr>
                     <td class="text-center">{{ $rs_result->firstItem()+$i }}</td>
-                    <td class="text-center">{{ str_pad($result->group_id,2,'0',STR_PAD_LEFT) }}</td>
+                    <td class="text-center">{{ str_pad($result->role_id,5,'0',STR_PAD_LEFT) }}</td>
+                    <td class="text-left">{{ $result->role_nm }}</td>
+                    <td class="text-left">{{ $result->role_desc }}</td>
+                    <td class="text-left">{{ $result->default_page }}</td>
                     <td class="text-left">{{ $result->group_name }}</td>
-                    <td class="text-left">{{ $result->group_desc }}</td>
                     <td class="text-center">
                       <a href="/sistem/roles/edit/{{ str_pad($result->group_id,2,'0',STR_PAD_LEFT) }}" class="btn btn-xs btn-info">
                         <i class="fa fa-pencil"></i>
@@ -88,4 +103,11 @@
     </section>
   </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+  $("select").select2({
+    allowClear: true
+  });
+})
+</script>
 @endsection
