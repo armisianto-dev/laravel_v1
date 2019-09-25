@@ -22,6 +22,8 @@ class DeveloperController extends Controller
   |
   */
 
+  protected $portal_id = '10';
+
   /**
   * Create a new controller instance.
   *
@@ -72,6 +74,7 @@ class DeveloperController extends Controller
 
         // save session
         $request->session()->put('login_developer', $arr_session);
+        $request->session()->put('portal_active', $this->portal_id);
 
         return redirect("/".$user[0]['default_page']);
     }

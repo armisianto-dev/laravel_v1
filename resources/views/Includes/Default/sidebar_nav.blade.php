@@ -75,7 +75,7 @@
 
           <ul id="mainnav-menu" class="list-group">
 
-            {!! $list_menu !!}
+            {!! $list_nav !!}
 
 
           </ul>

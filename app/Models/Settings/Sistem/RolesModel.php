@@ -5,13 +5,13 @@ namespace App\Models\Settings\Sistem;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
-class GroupsModel extends Model
+class RolesModel extends Model
 {
-  protected $table = 'com_group';
-  protected $primaryKey = 'group_id';
+  protected $table = 'com_role';
+  protected $primaryKey = 'role_id';
 
   protected $fillable = [
-    'group_id','group_name', 'group_desc','mdb'
+    'role_id','role_nm','role_desc','default_page','mdb'
   ];
 
   const CREATED_AT = 'crd';

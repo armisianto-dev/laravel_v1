@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\DeveloperBase;
 
-class DeveloperController extends Controller
+class DeveloperController extends DeveloperBase
 {
     //
     public function index(Request $request)

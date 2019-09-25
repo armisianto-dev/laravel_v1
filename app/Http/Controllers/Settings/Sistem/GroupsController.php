@@ -19,7 +19,7 @@ class GroupsController extends DeveloperBase
 
     $rs_result = GroupsModel::whereRaw('group_name LIKE ? ', [$group_name])
       ->orderBy('group_id', 'ASC')
-      ->paginate(15);
+      ->paginate(10);
     return view('Settings.Sistem.Groups.index', compact('rs_result','search'));
   }
 

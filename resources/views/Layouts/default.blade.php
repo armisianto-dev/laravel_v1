@@ -67,10 +67,10 @@
       <!-- Visible when footer positions are static -->
       <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
       <div class="hide-fixed pull-right pad-rgt">
-        <strong>PT. Time Excelindo</strong>
+        <strong>Laravel Base</strong>
       </div>
 
-      <p class="pad-lft">&#0169;</p>
+      <p class="pad-lft">&#0169; 2019</p>
 
 
 
