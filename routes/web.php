@@ -32,4 +32,6 @@ Route::prefix('/sistem/portal')->middleware('auth.developer')->group(function(){
   Route::post('/insert', 'Settings\Sistem\PortalController@insert' );
   Route::get('/edit/{portal_id?}', 'Settings\Sistem\PortalController@edit' );
   Route::post('/update/{portal_id?}', 'Settings\Sistem\PortalController@update' );
+  Route::get('/delete/{portal_id?}', 'Settings\Sistem\PortalController@delete' );
+  Route::post('/remove/{portal_id?}', 'Settings\Sistem\PortalController@remove' );
 });

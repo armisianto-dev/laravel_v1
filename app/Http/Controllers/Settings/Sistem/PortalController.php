@@ -124,4 +124,29 @@ class PortalController extends DeveloperBase
       return redirect('/sistem/portal/edit/'.$portal_id)->with('error','Data portal gagal diedit');
     }
 
+    public function delete($portal_id = null){
+      $this->_set_page_rule('D');
+
+      if(!$portal_id){
+        return redirect('/sistem/portal')->with('error','Data portal tidak ditemukan');
+      }
+
+      $result = PortalModel::where('portal_id', $portal_id)->first();
+      return view('Settings.Sistem.Portal.delete', compact('result', 'portal_id'));
+    }
+
+    public function remove($portal_id = null){
+      $this->_set_page_rule('D');
+
+      if(!$portal_id){
+        return redirect('/sistem/portal')->with('error','Data portal tidak ditemukan');
+      }
+
+      if(PortalModel::where('portal_id', $portal_id)->delete()){
+        return redirect('/sistem/portal')->with('success','Data portal berhasil dihapus');
+      }
+
+      return redirect('/sistem/portal/delete/'.$portal_id)->with('error','Data portal gagal dihapus');
+    }
+
   }

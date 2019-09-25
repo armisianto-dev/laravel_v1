@@ -10,7 +10,7 @@ use App\Repositories\UserRepository;
 // Model
 use App\Models\Base\Menu;
 
-class DeveloperComposer
+class DefaultComposer
 {
 
   private $request;
@@ -51,12 +51,12 @@ class DeveloperComposer
     return $this->parent_selected;
   }
 
-  protected function __display_navigation()
-  {
+  protected function __display_navigation(){
+    $session = $this->request->session()->get('login_developer');
     $html = "";
     $html .= "<li class='list-header'>Navigation</li>";
     // get data
-    $rs_id = Menu::getMenuByParent($this->portal_id, '1909160001', 0);
+    $rs_id = Menu::getMenuByParent($this->portal_id, $session['user_id'], 0);
 
     if (!empty($rs_id)) {
       foreach ($rs_id as $rec) {
@@ -69,7 +69,7 @@ class DeveloperComposer
         // }
 
         // get child navigation
-        $child = $this->_get_child_navigation($rec['nav_id']);
+        $child = $this->_get_child_navigation($rec['nav_id'], $session['user_id']);
         if (!empty($child)) {
           $parent_class = '';
           $url_parent = '#';
@@ -99,13 +99,13 @@ class DeveloperComposer
     // return view('includes.header', compact('html'));
   }
 
-  protected function _get_child_navigation($parent_id)
+  protected function _get_child_navigation($parent_id, $user_id)
   {
     $html = "";
     $parent_selected = $this->parent_selected;
     $nav_id = $this->nav_id;
     // --
-    $rs_id = Menu::getMenuByParent($this->portal_id, '1909160001', $parent_id);
+    $rs_id = Menu::getMenuByParent($this->portal_id, $user_id, $parent_id);
 
     if (!empty($rs_id)) {
       $collapse = ($parent_id == $this->parent_selected) ? 'collapse in' : 'collapse' ;
