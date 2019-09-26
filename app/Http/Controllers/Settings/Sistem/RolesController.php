@@ -111,72 +111,83 @@ class RolesController extends DeveloperBase
       return view('Settings.Sistem.Roles.edit', compact('result', 'role_id', 'rs_group'));
     }
 
-    public function update(Request $request, $group_id = null){
+    public function update(Request $request, $role_id = null){
       $this->_set_page_rule('U');
 
-      if(!$group_id){
+      if(!$role_id){
         return redirect('/sistem/roles')->with('error','Data group tidak ditemukan');
       }
 
       $validator = Validator::make($request->all(), [
-        'group_id' => 'required|numeric|unique:com_group,group_id,'.$group_id.',group_id',
-        'group_name' => 'required|max:50',
-        'group_desc' => 'required|max:100',
+        'group_id' => 'required',
+        'role_nm' => 'required|max:100|unique:com_role,role_nm,'.$request->input('role_nm').',role_nm',
+        'role_desc' => 'required|max:100',
+        'default_page' => 'required|max:50',
       ],[
-        'group_id.required' => 'Roles ID harus diisi',
-        'group_id.numeric' => 'Roles ID harus diisi angka',
-        'group_id.unique' => 'Roles ID sudah digunakan',
-        'group_name.required' => 'Nama Roles harus diisi',
-        'group_name.max' => 'Nama Roles max 50 karakter',
-        'group_desc.required' => 'Roles Desc harus diisi',
-        'group_desc.max' => 'Roles Desc max 100 karakter',
+        'group_id.required' => 'Group ID harus diisi',
+        'role_nm.required' => 'Nama Role harus diisi',
+        'role_nm.max' => 'Nama Role max 100 karakter',
+        'role_desc.required' => 'Role Desc harus diisi',
+        'role_desc.max' => 'Role Desc max 100 karakter',
+        'default_page.required' => 'Default page harus diisi',
+        'default_page.max' => 'Default page max 50 karakter',
       ]);
 
       if($validator->fails()){
         $messages = $validator->errors();
-        return redirect('/sistem/roles/edit/'.$group_id)->with('error','Data group gagal diedit')->withErrors($messages);
+        return redirect('/sistem/roles/edit/'.$role_id)->with('error','Data role gagal diedit')->withErrors($messages);
       }
 
-      $data = RolesModel::where('group_id', $group_id)->first();
+      $data = RolesModel::where('role_id', $role_id)->first();
+
+      if($data->group_id != $request->input('group_id')){
+        // Create RolesID
+        $role_id = RolesModel::getNewID(array($request->input('group_id')));
+      }
+
+      $data->role_id = $role_id;
       $data->group_id = $request->input('group_id');
-      $data->group_name = $request->input('group_name');
-      $data->group_desc = $request->input('group_desc');
+      $data->role_nm = $request->input('role_nm');
+      $data->role_desc = $request->input('role_desc');
+      $data->default_page = $request->input('default_page');
       $data->mdb = $this->com_user['user_id'];
       if($data->save()){
-        return redirect('/sistem/roles')->with('success','Data group berhasil diedit');
+        return redirect('/sistem/roles')->with('success','Data role berhasil diedit');
       }
 
-      return redirect('/sistem/roles/edit/'.$group_id)->with('error','Data group gagal diedit');
+      return redirect('/sistem/roles/edit/'.$role_id)->with('error','Data role gagal diedit');
     }
 
-    public function delete($group_id = null){
+    public function delete($role_id = null){
       $this->_set_page_rule('D');
 
-      if(!$group_id){
-        return redirect('/sistem/roles')->with('error','Data group tidak ditemukan');
+      if(!$role_id){
+        return redirect('/sistem/roles')->with('error','Data role tidak ditemukan');
       }
 
-      $result = RolesModel::where('group_id', $group_id)->first();
+      $result = RolesModel::where('role_id', $role_id)->first();
 
       if(!$result){
         return redirect('/sistem/roles')->with('error','Data group tidak ditemukan');
       }
 
-      return view('Settings.Sistem.Roles.delete', compact('result', 'group_id'));
+      $group = GroupsModel::where('group_id', $result->group_id)->first();
+
+      return view('Settings.Sistem.Roles.delete', compact('result', 'group', 'role_id'));
     }
 
-    public function remove($group_id = null){
+    public function remove($role_id = null){
       $this->_set_page_rule('D');
 
-      if(!$group_id){
-        return redirect('/sistem/roles')->with('error','Data group tidak ditemukan');
+      if(!$role_id){
+        return redirect('/sistem/roles')->with('error','Data role tidak ditemukan');
       }
 
-      if(RolesModel::where('group_id', $group_id)->delete()){
-        return redirect('/sistem/roles')->with('success','Data group berhasil dihapus');
+      if(RolesModel::where('role_id', $role_id)->delete()){
+        return redirect('/sistem/roles')->with('success','Data role berhasil dihapus');
       }
 
-      return redirect('/sistem/roles/delete/'.$group_id)->with('error','Data group gagal dihapus');
+      return redirect('/sistem/roles/delete/'.$role_id)->with('error','Data role gagal dihapus');
     }
 
   }
