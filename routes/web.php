@@ -61,7 +61,7 @@ Route::prefix('/sistem/roles')->middleware('auth.developer')->group(function(){
   Route::post('/remove/{group_id?}', 'Settings\Sistem\RolesController@remove' );
 });
 
-// Roles
+// Navigation
 Route::prefix('/sistem/menu')->middleware('auth.developer')->group(function(){
   Route::get('/', 'Settings\Sistem\NavigationController@index');
   Route::get('/navigation/{portal_id?}', 'Settings\Sistem\NavigationController@navigation' );
@@ -72,4 +72,14 @@ Route::prefix('/sistem/menu')->middleware('auth.developer')->group(function(){
   Route::post('/update/{portal_id?}/{nav_id?}', 'Settings\Sistem\NavigationController@update' );
   Route::get('/delete/{portal_id?}/{nav_id?}', 'Settings\Sistem\NavigationController@delete' );
   Route::post('/remove/{portal_id?}/{nav_id?}', 'Settings\Sistem\NavigationController@remove' );
+});
+
+
+// Permissions
+Route::prefix('/sistem/permissions')->middleware('auth.developer')->group(function(){
+  Route::get('/', 'Settings\Sistem\PermissionsController@index');
+  Route::post('/search', 'Settings\Sistem\PermissionsController@search');
+  Route::post('/set_portal/{role_id?}', 'Settings\Sistem\PermissionsController@set_portal');
+  Route::get('/edit/{role_id?}', 'Settings\Sistem\PermissionsController@edit' );
+  Route::post('/update/{role_id?}/{portal_id?}', 'Settings\Sistem\PermissionsController@update' );
 });

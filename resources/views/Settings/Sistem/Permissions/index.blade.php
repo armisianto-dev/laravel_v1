@@ -5,7 +5,7 @@
 </div>
 <ol class="breadcrumb">
   <li><a href="#">Pengaturan Sistem</a></li>
-  <li class="active">Roles</li>
+  <li class="active">Permissions</li>
 </ol>
 <div id="page-content">
   <div class="row">
@@ -13,15 +13,10 @@
       <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <div class="panel-control">
-              <a href="/sistem/roles/create" class="btn btn-info">
-                <i class="fa fa-plus mr-5"></i> Tambah Data
-              </a>
-            </div>
             <h3 class="panel-title">List Roles</h3>
           </div>
           <div class="panel-body">
-            <form class="form-inline" action="/sistem/roles/search" method="post">
+            <form class="form-inline" action="/sistem/permissions/search" method="post">
               {{ csrf_field() }}
               <div class="form-group">
                 <label for="role_nm" class="sr-only">Nama Role</label>
@@ -69,11 +64,8 @@
                     <td class="text-left">{{ $result->default_page }}</td>
                     <td class="text-left">{{ $result->group_name }}</td>
                     <td class="text-center">
-                      <a href="/sistem/roles/edit/{{ str_pad($result->role_id,5,'0',STR_PAD_LEFT) }}" class="btn btn-xs btn-info">
+                      <a href="/sistem/permissions/edit/{{ str_pad($result->role_id,5,'0',STR_PAD_LEFT) }}" class="btn btn-xs btn-info">
                         <i class="fa fa-pencil"></i>
-                      </a>
-                      <a href="/sistem/roles/delete/{{ str_pad($result->role_id,5,'0',STR_PAD_LEFT) }}" class="btn btn-xs btn-danger">
-                        <i class="fa fa-times"></i>
                       </a>
                     </td>
                   </tr>

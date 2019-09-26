@@ -98,12 +98,12 @@ class RolesController extends DeveloperBase
       $this->add_load_js('plugins/select2/js/select2.min.js');
 
       if(!$role_id){
-        return redirect('/sistem/roles')->with('error','Data group tidak ditemukan');
+        return redirect('/sistem/roles')->with('error','Data role tidak ditemukan');
       }
 
       $result = RolesModel::where('role_id', $role_id)->first();
       if(!$result){
-        return redirect('/sistem/roles')->with('error','Data group tidak ditemukan');
+        return redirect('/sistem/roles')->with('error','Data role tidak ditemukan');
       }
 
       $rs_group = GroupsModel::orderBy('group_id')->get();
@@ -115,7 +115,7 @@ class RolesController extends DeveloperBase
       $this->_set_page_rule('U');
 
       if(!$role_id){
-        return redirect('/sistem/roles')->with('error','Data group tidak ditemukan');
+        return redirect('/sistem/roles')->with('error','Data role tidak ditemukan');
       }
 
       $validator = Validator::make($request->all(), [
@@ -168,7 +168,7 @@ class RolesController extends DeveloperBase
       $result = RolesModel::where('role_id', $role_id)->first();
 
       if(!$result){
-        return redirect('/sistem/roles')->with('error','Data group tidak ditemukan');
+        return redirect('/sistem/roles')->with('error','Data role tidak ditemukan');
       }
 
       $group = GroupsModel::where('group_id', $result->group_id)->first();

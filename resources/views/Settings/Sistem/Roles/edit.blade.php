@@ -19,7 +19,7 @@
                 <i class="fa fa-chevron-left mr-5"></i> Kembali
               </a>
             </div>
-            <h3 class="panel-title">Tambah Data</h3>
+            <h3 class="panel-title">Edit Data</h3>
           </div>
           <form class="form-horizontal mar-top" action="/sistem/roles/update/{{ str_pad($result->role_id,5,'0',STR_PAD_LEFT) }}" method="post">
             {{ csrf_field() }}
