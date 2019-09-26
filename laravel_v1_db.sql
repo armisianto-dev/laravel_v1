@@ -123,7 +123,7 @@ CREATE TABLE `com_portal` (
 
 /*Data for the table `com_portal` */
 
-insert  into `com_portal`(`portal_id`,`portal_nm`,`site_title`,`site_desc`,`meta_desc`,`meta_keyword`,`mdb`,`crd`,`mdd`) values ('10','Private Area','PT. Time Excelindo','Management Tools | PT. Time Excelindo',NULL,NULL,NULL,NULL,'2019-09-24 09:14:45'),('20','Operator Portal','E-Performance Kementerian Perhubungan','E-Performance Kementerian Perhubungan','E-Performance Kementerian Perhubungan','E-Performance, Kementerian Perhubungan, Kemenhub, Dephub, Aplikasi Kinerja','1804170001','2019-04-15 13:18:03',NULL);
+insert  into `com_portal`(`portal_id`,`portal_nm`,`site_title`,`site_desc`,`meta_desc`,`meta_keyword`,`mdb`,`crd`,`mdd`) values ('10','Private Area','Laravel V1','Laravel V1',NULL,NULL,'1909160001',NULL,'2019-09-26 09:59:26'),('20','Operator Portal','Operator Portal | Laravel V1','Operator Portal | Laravel V1',NULL,NULL,'1909160001','2019-04-15 13:18:03','2019-09-26 09:59:53');
 
 /*Table structure for table `com_preferences` */
 
