@@ -67,9 +67,9 @@ Route::prefix('/sistem/menu')->middleware('auth.developer')->group(function(){
   Route::get('/navigation/{portal_id?}', 'Settings\Sistem\NavigationController@navigation' );
   Route::post('/search/{portal_id?}', 'Settings\Sistem\NavigationController@search' );
   Route::get('/create/{portal_id?}', 'Settings\Sistem\NavigationController@create' );
-  Route::post('/insert', 'Settings\Sistem\NavigationController@insert' );
-  Route::get('/edit/{group_id?}', 'Settings\Sistem\NavigationController@edit' );
-  Route::post('/update/{group_id?}', 'Settings\Sistem\NavigationController@update' );
-  Route::get('/delete/{group_id?}', 'Settings\Sistem\NavigationController@delete' );
-  Route::post('/remove/{group_id?}', 'Settings\Sistem\NavigationController@remove' );
+  Route::post('/insert/{portal_id?}', 'Settings\Sistem\NavigationController@insert' );
+  Route::get('/edit/{portal_id?}/{nav_id?}', 'Settings\Sistem\NavigationController@edit' );
+  Route::post('/update/{portal_id?}/{nav_id?}', 'Settings\Sistem\NavigationController@update' );
+  Route::get('/delete/{portal_id?}/{nav_id?}', 'Settings\Sistem\NavigationController@delete' );
+  Route::post('/remove/{portal_id?}/{nav_id?}', 'Settings\Sistem\NavigationController@remove' );
 });
