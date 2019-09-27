@@ -21,7 +21,6 @@ class Menu extends Model
     ->where('a.parent_id','=',$parent_id)
     ->where('a.active_st','=','1')
     ->where('a.display_st','=','1')
-    ->where('c.role_display','=','1')
     ->groupBy('a.nav_id')
     ->orderBy('a.nav_no', 'ASC')
     ->get();
@@ -34,7 +33,7 @@ class Menu extends Model
     INNER JOIN com_role c ON b.role_id = c.role_id
     INNER JOIN com_role_user d ON c.role_id = d.role_id
     WHERE d.user_id = ? AND b.nav_id = ? AND a.portal_id = ? AND active_st = '1'";
-    
+
     $result = DB::connection()->select($sql, $params);
     $result = json_decode(json_encode($result), true);
     if($result){

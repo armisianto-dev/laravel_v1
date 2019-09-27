@@ -83,3 +83,15 @@ Route::prefix('/sistem/permissions')->middleware('auth.developer')->group(functi
   Route::get('/edit/{role_id?}', 'Settings\Sistem\PermissionsController@edit' );
   Route::post('/update/{role_id?}/{portal_id?}', 'Settings\Sistem\PermissionsController@update' );
 });
+
+// User
+Route::prefix('/sistem/users')->middleware('auth.developer')->group(function(){
+  Route::get('/', 'Settings\Sistem\UsersController@index');
+  Route::post('/search', 'Settings\Sistem\UsersController@search');
+  Route::get('/create', 'Settings\Sistem\UsersController@create' );
+  Route::post('/insert', 'Settings\Sistem\UsersController@insert' );
+  Route::get('/edit/{user_id?}', 'Settings\Sistem\UsersController@edit' );
+  Route::post('/update/{user_id?}', 'Settings\Sistem\UsersController@update' );
+  Route::get('/delete/{user_id?}', 'Settings\Sistem\UsersController@delete' );
+  Route::post('/remove/{user_id?}', 'Settings\Sistem\UsersController@remove' );
+});
