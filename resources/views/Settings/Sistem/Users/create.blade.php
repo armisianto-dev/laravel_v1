@@ -21,7 +21,7 @@
             </div>
             <h3 class="panel-title">Tambah Data</h3>
           </div>
-          <form class="form-horizontal mar-top" action="/sistem/users/insert" method="post">
+          <form class="form-horizontal mar-top" action="/sistem/users/insert" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="panel-body">
               @include('includes.flash-message')
@@ -31,9 +31,9 @@
                   <select class="form-control" name="role_id" id="role_id" data-placeholder="Pilih Role">
                     <option value=""></option>
                     @if (count($rs_role) > 0)
-                      @foreach ($rs_role as $role)
-                      <option value="{{ str_pad($role->role_id,5,'0',STR_PAD_LEFT) }}">{{ $role->role_nm }}</option>
-                      @endforeach
+                    @foreach ($rs_role as $role)
+                    <option value="{{ str_pad($role->role_id,5,'0',STR_PAD_LEFT) }}">{{ $role->role_nm }}</option>
+                    @endforeach
                     @endif
                   </select>
                   <small class="help-block text-danger">Wajib diisi.</small>
@@ -69,8 +69,15 @@
               </div>
               <div class="form-group">
                 <label class="col-md-3 control-label">Foto Profil</label>
-                <div class="col-md-7">
-                  
+                <div class="col-md-4">
+                  <input type="file" name="user_img" class="form-control file-styled">
+                  <input type="hidden" name="user_img_result">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3 control-label"></label>
+                <div class="col-md-4 text-center">
+                  <div id="upload-demo"></div>
                 </div>
               </div>
             </div>
@@ -92,6 +99,42 @@
 $(document).ready(function(){
   $("select").select2({
     allowClear: true
+  });
+
+  var resize = $('#upload-demo').croppie({
+    enableExif: true,
+    enableOrientation: true,
+    viewport: {
+      width: 160,
+      height: 160,
+      type: 'square'
+    },
+    boundary: {
+      width: 200,
+      height: 200
+    },
+    mouseWheelZoom: true
+  });
+
+  $('input[name="user_img"]').on('change', function () {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      resize.croppie('bind',{
+        url: e.target.result
+      }).then(function(){
+        console.log('jQuery bind complete');
+      });
+    }
+    reader.readAsDataURL(this.files[0]);
+  });
+
+  $('#upload-demo').on('update.croppie', function(ev, cropData) {
+    resize.croppie('result', {
+      type: 'canvas',
+      size: 'viewport'
+    }).then(function (img) {
+      $('input[name="user_img_result"]').val(img);
+    });
   });
 })
 </script>

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 
 // Model
+use App\Models\Base\Users;
 use App\Models\Base\Menu;
 
 class DeveloperBase extends Controller
@@ -28,6 +29,7 @@ class DeveloperBase extends Controller
   public function __construct(){
     $this->middleware(function ($request, $next) {
       $this->com_user = $request->session()->get('login_developer');
+      $this->__set_user();
       $this->__set_current();
       $this->__check_authority();
       $this->__display_navigation();
@@ -41,6 +43,12 @@ class DeveloperBase extends Controller
       return $next($request);
     });
 
+  }
+
+  protected function __set_user(){
+    if($this->com_user){
+      $this->com_user = Users::getUserLoginByID(array($this->com_user['user_id']));
+    }
   }
 
   protected function __check_authority(){

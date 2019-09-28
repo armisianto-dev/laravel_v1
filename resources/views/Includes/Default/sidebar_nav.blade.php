@@ -15,7 +15,7 @@
             <div class="profile-wrap">
               <div class="pad-btm">
                 <span class="label label-success pull-right">New</span>
-                <img class="img-circle img-sm img-border" src="{{ URL::asset('assets/images/IMG_9529_white.jpg') }}"
+                <img class="img-circle img-sm img-border" src="{{ URL::asset($com_user['user_image']) }}"
                 alt="Profile Picture">
               </div>
               <a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="false">
@@ -23,7 +23,7 @@
                   <i class="dropdown-caret"></i>
                 </span>
                 <p class="mnp-name">{{ $com_user['user_alias'] }}</p>
-                <span class="mnp-desc">{{ $com_user['user_email'] }}</span>
+                <span class="mnp-desc">{{ $com_user['user_mail'] }}</span>
               </a>
             </div>
             <div id="profile-nav" class="collapse list-group bg-trans">

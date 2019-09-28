@@ -67,7 +67,8 @@ class DeveloperController extends Controller
         $arr_session = [
           "user_id" => $user[0]['user_id'],
           "user_alias" => $user[0]['user_alias'],
-          "user_email" => $user[0]['user_mail'],
+          "user_mail" => $user[0]['user_mail'],
+          "user_image" => $user[0]['user_img_path'].$user[0]['user_img_name'],
           "default_page" => $user[0]['default_page'],
           "role_nm" => $user[0]['role_nm']
         ];
