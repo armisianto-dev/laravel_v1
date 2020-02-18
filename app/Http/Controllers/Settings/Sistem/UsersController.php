@@ -250,6 +250,10 @@ class UsersController extends DeveloperBase
         return redirect('/sistem/users')->with('error','Data user gagal diedit');
       }
 
+      public function delete(){
+        $this->_set_page_rule('D');
+      }
+
       private function random_string($type = null, $length = null) {
         $type = empty($type) ? 'alphanumeric' : $type;
         $length = empty($length) ? 6 : $length;

@@ -68,6 +68,8 @@ class DeveloperBase extends Controller
       $this->role_tp[$rule] = $N;
       $i++;
     }
+
+    View::share('com_role', $this->role_tp);
   }
 
   public function _set_page_rule($rule) {
@@ -77,17 +79,27 @@ class DeveloperBase extends Controller
     }
   }
 
-  public function add_load_js($path){
+  public function add_load_js($path, $url = false){
     $themes_path = 'assets/themes/default/';
-    array_push($this->load_js, $themes_path.$path);
+
+    if($url){
+      array_push($this->load_js, $path);
+    }else{
+      array_push($this->load_js, $themes_path.$path);
+    }
 
     View::share('load_js', $this->load_js);
   }
 
-  public function add_load_style($path){
+  public function add_load_style($path, $url = false){
     $themes_path = 'assets/themes/default/';
-    array_push($this->load_style, $themes_path.$path);
 
+    if($url){
+      array_push($this->load_style, $path);
+    }else{
+      array_push($this->load_style, $themes_path.$path);
+    }
+    
     View::share('load_style', $this->load_style);
   }
 
@@ -102,6 +114,15 @@ class DeveloperBase extends Controller
       $this->parent_selected = $nav['parent_id'];
       $this->parent_id = $nav['parent_id'];
       $this->nav_id = $nav['nav_id'];
+    }else{
+      $routeUrl = $request->path();
+      $nav = Menu::where('nav_url', '/'.$routeUrl)->get();
+      if($nav->count()){
+        $nav = json_decode(json_encode($nav[0]),true);
+        $this->parent_selected = $nav['parent_id'];
+        $this->parent_id = $nav['parent_id'];
+        $this->nav_id = $nav['nav_id'];
+      }
     }
   }
 
@@ -132,6 +153,7 @@ class DeveloperBase extends Controller
           $url_parent = url($rec['nav_url']);
           $arrow = '';
         }
+
         // parent active
         if ($this->parent_selected == $rec['nav_id']) {
           if (!empty($child)) {
@@ -139,6 +161,10 @@ class DeveloperBase extends Controller
           } else {
             $parent_active = 'active-link';
           }
+        }
+
+        if($rec['nav_id'] == $this->nav_id){
+          $parent_active = 'active-link';
         }
         // data
         $html .= '<li class="' . $parent_class . ' ' . $parent_active . '">';
@@ -149,7 +175,6 @@ class DeveloperBase extends Controller
     }
     // output
     $this->list_nav = $html;
-    // return view('includes.header', compact('html'));
   }
 
   protected function _get_child_navigation($parent_id, $user_id)

@@ -14,9 +14,11 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <div class="panel-control">
+              @if($com_role['C'] == 1)
               <a href="/sistem/users/create" class="btn btn-info">
                 <i class="fa fa-plus mr-5"></i> Tambah Data
               </a>
+              @endif
             </div>
             <h3 class="panel-title">List Users</h3>
           </div>
@@ -73,12 +75,16 @@
                       {{ ($result->user_completed == "1") ? 'Ya' : 'Tidak'}}
                     </td>
                     <td class="text-center">
+                      @if($com_role['U'] == 1)
                       <a href="/sistem/users/edit/{{ $result->user_id }}" class="btn btn-xs btn-info">
                         <i class="fa fa-pencil"></i>
                       </a>
+                      @endif
+                      @if($com_role['D'] == 1)
                       <a href="/sistem/users/delete/{{ $result->user_id }}" class="btn btn-xs btn-danger">
                         <i class="fa fa-times"></i>
                       </a>
+                      @endif
                     </td>
                   </tr>
                   @endforeach
